@@ -1,8 +1,7 @@
 class TodosController < ApplicationController
   def create
-    @list = List.find(params[:list_id])
-    @todo = @list.todos.new(todo_params)
-    @todos = @list.todos
+    @list = List.find params[:list_id]
+    @todo = Todo.new(todo_params)
     if @todo.save
       redirect_to list_path(@list)
     else
@@ -16,6 +15,7 @@ class TodosController < ApplicationController
   
   private
   def todo_params
-    params.require(:todo).permit(:description, :status)
+    params["todo"]["list_id"] = params[:list_id]
+    params.require(:todo).permit(:description, :status, :list_id)
   end
 end
