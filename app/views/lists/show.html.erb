@@ -1,0 +1,22 @@
+<%= form_for [@list, @todo], local: true do |form|%>
+  <% if @todo.errors.any?%>
+  <ul>
+    <% @todo.errors.full_messages.each do |message| %>
+      <li>
+        <%= message%>
+      </li>
+    <%end%>
+  </ul>
+  <% end%>
+  <%= form.text_field :description%>
+  <input type="submit" value="Add todo">
+<% end %>
+<% @todos.each do |todo| %>
+  <p>
+    <%= todo.description %>
+    <button data-reflex="click->ExampleReflex#update" data-id=<%= todo.id%>><%= todo.status == 0? "complete" : "incomplete" %></button>
+    <button data-reflex="click->ExampleReflex#delete" data-id=<%= todo.id%>>delete</button>
+
+    <%=%>
+  </p>
+<% end%>

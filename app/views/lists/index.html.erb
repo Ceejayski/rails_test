@@ -1,0 +1,23 @@
+<h1>Lists#index</h1>
+<p>Find me in app/views/lists/index.html.erb</p>
+<% if @list.errors.any?%>
+<ul>
+  <% @list.errors.full_messages.each do |message| %>
+    <li>
+      <%= message%>
+    </li>
+  <%end%>
+</ul>
+<% end%>
+<%= form_with model: @list, local: true do |form|%>
+  <%= form.text_field :name %>
+  <input type="submit" value="Add list">
+<% end %>
+<% @lists.each do |list| %>
+  <p>
+    <%= link_to  list_path(list)  do%>
+      <%= list.name %>  
+    <%end%>
+    <%= link_to  "delete", list, method: :delete, style: "display: inline;" %>
+  </p>
+<% end%>
